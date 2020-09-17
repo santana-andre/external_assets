@@ -1,12 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script>
-        
+        var url_base = "http://localhost:3000/v1/external_assets";
+
+        //---------------------------- Buscar customizações
+        function getCustomers(callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4) {
+                    if (xmlHttp.status == 200) {
+                        callback(xmlHttp.responseText);
+                    } else if (xmlHttp.status == 500) {
+                        alert("Erro Response: " + xmlHttp.responseText);
+                    }
+                }
+            }
+
+            let url = url_base + "/costumer";
+            xmlHttp.open('GET', url, true); // true for asynchronous 
+            xmlHttp.setRequestHeader('Access-Control-Allow-Origin', url);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send();
+        }
+
+        function responseGetCustomers(response) {
+            console.log("responseGetCustomers ", response);
+        }
+
+        function triggerGetCustomers() {
+            getCustomers(responseGetCustomers);
+        }
+
+        //---------------------------- Buscar customizações expecifica
+        function getCustomer(callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4) {
+                    if (xmlHttp.status == 200) {
+                        callback(xmlHttp.responseText);
+                    } else if (xmlHttp.status == 500) {
+                        alert("Erro Response: " + xmlHttp.responseText);
+                    }
+                }
+            }
+            let customerId = "1";
+            let url = url_base + "/costumer_id/" + customerId;
+            xmlHttp.open('GET', url, true); // true for asynchronous 
+            xmlHttp.setRequestHeader('Access-Control-Allow-Origin', url);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send();
+        }
+
+        function responseGetCustomer(response) {
+            console.log("responseGetCustomer ", response);
+        }
+
+        function triggerGetCustomer() {
+            getCustomer(responseGetCustomer);
+        }
+
+        //---------------------------- Criar customizações
+        function createCustomers(callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4) {
+                    if (xmlHttp.status == 200) {
+                        callback(xmlHttp.responseText);
+                    } else {
+                        console.log("Erro Response: ", xmlHttp.responseText);
+                        alert("Erro Response: " + xmlHttp.responseText);
+                    }
+                }
+            }
+
+            let url = url_base + "/costumer";
+            xmlHttp.open('POST', url, true); // true for asynchronous 
+            xmlHttp.setRequestHeader('Access-Control-Allow-Origin', url);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send(JSON.stringify({
+                "name": "occ1",
+                "descricao": "desc1",
+                "site_logo_1": "logo1",
+                "site_logo_2": "logo2"
+            }));
+        }
+
+        function responseCreateCustomers(response) {
+            console.log("responseCreateCustomers ", response);
+        }
+
+        function triggerCreateCustomers() {
+            createCustomers(responseCreateCustomers);
+        }
+
+        //---------------------------- Atualizar customizações
+        function updateCustomers(callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4) {
+                    if (xmlHttp.status == 200) {
+                        callback(xmlHttp.responseText);
+                    } else {
+                        console.log("Erro Response: ", xmlHttp.responseText);
+                        alert("Erro Response: " + xmlHttp.responseText);
+                    }
+                }
+            }
+
+            let url = url_base + "/costumer";
+            xmlHttp.open('PUT', url, true); // true for asynchronous 
+            xmlHttp.setRequestHeader('Access-Control-Allow-Origin', url);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send(JSON.stringify({
+                "id": "1",
+                "name": "occ11",
+                "descricao": "desc11",
+                "site_logo_1": "logo11",
+                "site_logo_2": "logo22"
+            }));
+        }
+
+        function responseUpdateCustomers(response) {
+            console.log("responseUpdateCustomers ", response);
+        }
+
+        function triggerUpdateCustomers() {
+            updateCustomers(responseUpdateCustomers);
+        }
+
+        //---------------------------- Remover customizações
+        function removeCustomers(callback) {
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function () {
+                if (xmlHttp.readyState == 4) {
+                    if (xmlHttp.status == 200) {
+                        callback(xmlHttp.responseText);
+                    } else {
+                        console.log("Erro Response: ", xmlHttp.responseText);
+                        alert("Erro Response: " + xmlHttp.responseText);
+                    }
+                }
+            }
+
+            let url = url_base + "/costumer";
+            xmlHttp.open('DELETE', url, true); // true for asynchronous 
+            xmlHttp.setRequestHeader('Access-Control-Allow-Origin', url);
+            xmlHttp.setRequestHeader('Content-Type', 'application/json');
+            xmlHttp.send(JSON.stringify({
+                "id": "2"
+            }));
+        }
+
+        function responseRemoveCustomers(response) {
+            console.log("responseRemoveCustomers ", response);
+            alert("responseRemoveCustomers : " + response);
+        }
+
+        function triggerRemoveCustomers() {
+            removeCustomers(responseRemoveCustomers);
+        }
+
     </script>
 </head>
+
 <body>
 
+    <button onclick="triggerGetCustomer()">Get Customer</button>
+    <br />
+    <br />
+    <button onclick="triggerGetCustomers()">Get Customers</button>
+    <br />
+    <br />
+    <button onclick="triggerCreateCustomers()">Create Customers</button>
+    <br />
+    <br />
+    <button onclick="triggerUpdateCustomers()">Update Customers</button>
+    <br />
+    <br />
+    <button onclick="triggerRemoveCustomers()">Remove Customers</button>
 
 </body>
+
 </html>

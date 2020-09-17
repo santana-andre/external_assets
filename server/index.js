@@ -2,11 +2,13 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var db = require("./database.js");
+var cors = require('cors')
 
 // Read port from command line, config, or default
 var port = 3000;
 
 var app = (module.exports = express());
+app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "9mb", extended: false }));
 app.use(bodyParser.json({ limit: "9mb" }));
 
