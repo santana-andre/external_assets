@@ -115,3 +115,10 @@ app.get("/v1/external_assets/costumer_id/:id", (req, res, next) => {
   });
   return;
 });
+
+var path = require('path');
+
+app.get("/admin", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
+  return;
+});
