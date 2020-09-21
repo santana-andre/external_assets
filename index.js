@@ -37,6 +37,7 @@ app.post("/v1/external_assets/costumer", function (req, res) {
     req.body.font,
     req.body.linkfont
   ];
+
   let sql = 'INSERT INTO customer (name, descricao, site_logo_1, site_logo_2, logo, cor_link, cor_btn_txt, cor_btn_back, cor_btn_borda, banner, font, linkfont) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
   let resp = {};
 
@@ -135,7 +136,7 @@ app.get("/v1/external_assets/costumer_id/:id", (req, res, next) => {
 //Recuperar informacoes de apenas um cliente
 app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
   var sql = "select * from customer where name = ?"
-  var params = [req.params.id]
+  var params = [req.params.name]
   db.get(sql, params, (err, row) => {
     if (err) {
       res.status(400).json({ "error": err.message });
