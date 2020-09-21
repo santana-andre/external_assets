@@ -118,6 +118,24 @@ app.get("/v1/external_assets/costumer_id/:id", (req, res, next) => {
   return;
 });
 
+//Recuperar informacoes de apenas um cliente
+app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
+  var sql = "select * from customer where name = ?"
+  var params = [req.params.id]
+  db.get(sql, params, (err, row) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    }
+    res.json({
+      "message": "success",
+      "data": row
+    })
+  });
+  return;
+});
+
+
 var path = require('path');
 
 app.get("/admin", (req, res, next) => {
