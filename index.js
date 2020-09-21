@@ -59,8 +59,23 @@ app.post("/v1/external_assets/costumer", function (req, res) {
 
 //Atualizar informações de cliente
 app.put("/v1/external_assets/costumer", function (req, res) {
-  let data = [req.body.name, req.body.descricao, req.body.site_logo_1, req.body.site_logo_2, req.body.id];
-  let sql = 'UPDATE customer SET name = ?, descricao = ?, site_logo_1 = ?, site_logo_2 = ? WHERE id = ?';
+  let data = [
+    req.body.name,
+    req.body.descricao,
+    req.body.site_logo_1,
+    req.body.site_logo_2,
+    req.body.logo,
+    req.body.cor_link,
+    req.body.cor_btn_txt,
+    req.body.cor_btn_back,
+    req.body.cor_btn_borda,
+    req.body.banner,
+    req.body.font,
+    req.body.linkfont,
+    req.body.id
+  ];
+  let sql = 'UPDATE customer SET name = ?, descricao = ?, site_logo_1 = ?, site_logo_2 = ?, logo = ?, cor_link = ?, cor_btn_txt = ?, cor_btn_back = ?, cor_btn_borda = ?, banner = ?, font = ?, linkfont = ? WHERE id = ?';
+
   let resp = {};
   db.run(sql, data, function (err) {
     if (err) {
