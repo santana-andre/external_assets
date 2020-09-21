@@ -4,8 +4,7 @@ var bodyParser = require("body-parser");
 var db = require("./database.js");
 var cors = require('cors')
 
-// Read port from command line, config, or default
-var port = 3000;
+var path = require('path');
 
 var app = (module.exports = express());
 app.use(cors());
@@ -25,9 +24,6 @@ app.get("/v1/external_assets/status", function (req, res) {
 app.post("/v1/external_assets/costumer", function (req, res) {
   let data = [
     req.body.name,
-    req.body.descricao,
-    req.body.site_logo_1,
-    req.body.site_logo_2,
     req.body.logo,
     req.body.cor_link,
     req.body.cor_btn_txt,
@@ -35,10 +31,11 @@ app.post("/v1/external_assets/costumer", function (req, res) {
     req.body.cor_btn_borda,
     req.body.banner,
     req.body.font,
-    req.body.linkfont
+    req.body.linkfont,
+    req.body.customcss
   ];
 
-  let sql = 'INSERT INTO customer (name, descricao, site_logo_1, site_logo_2, logo, cor_link, cor_btn_txt, cor_btn_back, cor_btn_borda, banner, font, linkfont) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
+  let sql = 'INSERT INTO customer (name, logo, cor_link, cor_btn_txt, cor_btn_back, cor_btn_borda, banner, font, linkfont, customcss) VALUES (?,?,?,?,?,?,?,?,?,?)';
   let resp = {};
 
   db.run(sql, data, function (err) {
@@ -59,8 +56,21 @@ app.post("/v1/external_assets/costumer", function (req, res) {
 
 //Atualizar informações de cliente
 app.put("/v1/external_assets/costumer", function (req, res) {
-  let data = [req.body.name, req.body.descricao, req.body.site_logo_1, req.body.site_logo_2, req.body.id];
-  let sql = 'UPDATE customer SET name = ?, descricao = ?, site_logo_1 = ?, site_logo_2 = ? WHERE id = ?';
+  let data = [
+    req.body.name,
+    req.body.logo,
+    req.body.cor_link,
+    req.body.cor_btn_txt,
+    req.body.cor_btn_back,
+    req.body.cor_btn_borda,
+    req.body.banner,
+    req.body.font,
+    req.body.linkfont,
+    req.body.customcss,
+    req.body.id
+  ];
+  let sql = 'UPDATE customer SET name = ?, logo = ?, cor_link = ?, cor_btn_txt = ?, cor_btn_back = ?, cor_btn_borda = ?, banner = ?, font = ?, linkfont = ?, customcss = ? WHERE id = ?';
+
   let resp = {};
   db.run(sql, data, function (err) {
     if (err) {
@@ -150,9 +160,12 @@ app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
   return;
 });
 
-var path = require('path');
-
 app.get("/admin", (req, res, next) => {
   res.sendFile(path.join(__dirname + '/index.html'));
+  return;
+});
+
+app.get("/occjs", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/occ.js'));
   return;
 });
