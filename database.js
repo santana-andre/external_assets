@@ -15,8 +15,16 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
             name text, 
             descricao text, 
             site_logo_1 text,
-            site_logo_2 text
-            )`,
+            site_logo_2 text,
+            logo text, 
+            cor_link text, 
+            cor_btn_txt text,
+            cor_btn_back text,
+            cor_btn_borda text,
+            banner text,
+            font text,
+            linkfont text
+        )`,
             (err) => {
                 if (err) {
                     console.log("Table customer already exists");
