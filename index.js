@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "9mb", extended: false }));
 app.use(bodyParser.json({ limit: "9mb" }));
 
-app.listen(process.env.PORT || 5000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log("NSH_External_Assets Running.");
 });
 
@@ -23,9 +23,23 @@ app.get("/v1/external_assets/status", function (req, res) {
 
 //Inserir um novo cliente
 app.post("/v1/external_assets/costumer", function (req, res) {
-  let data = [req.body.name, req.body.descricao, req.body.site_logo_1, req.body.site_logo_2];
-  let sql = 'INSERT INTO customer (name, descricao, site_logo_1, site_logo_2) VALUES (?,?,?,?)';
+  let data = [
+    req.body.name,
+    req.body.descricao,
+    req.body.site_logo_1,
+    req.body.site_logo_2,
+    req.body.logo,
+    req.body.cor_link,
+    req.body.cor_btn_txt,
+    req.body.cor_btn_back,
+    req.body.cor_btn_borda,
+    req.body.banner,
+    req.body.font,
+    req.body.linkfont
+  ];
+  let sql = 'INSERT INTO customer (name, descricao, site_logo_1, site_logo_2, logo, cor_link, cor_btn_txt, cor_btn_back, cor_btn_borda, banner, font, linkfont) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
   let resp = {};
+
   db.run(sql, data, function (err) {
     if (err) {
       resp = {
@@ -134,7 +148,6 @@ app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
   });
   return;
 });
-
 
 var path = require('path');
 
