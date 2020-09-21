@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "9mb", extended: false }));
 app.use(bodyParser.json({ limit: "9mb" }));
 
-app.listen(port, function () {
+app.listen(process.env.PORT || 5000, function () {
   console.log("NSH_External_Assets Running.");
 });
 

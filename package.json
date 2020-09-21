@@ -1,0 +1,19 @@
+{
+  "name": "NSH_External_Assets",
+  "version": "0.0.1",
+  "description": "Armazena e utiliza as propriedades dos novos sites configurado.",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isac M Q Junior",
+  "license": "SEE LICENSE IN LICENSE.TXT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "md5": "^2.3.0",
+    "sqlite3": "^5.0.0"
+  },
+  "main": "index.js"
+}
