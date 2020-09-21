@@ -112,7 +112,7 @@ ${json.customcss}
 
             //Banner Home
             if ($("#alert-page-change").html() == "homePage is loaded.") {
-                $("#main").append('<img id="banner_home" src="https://png.pngtree.com/thumb_back/fw800/back_pic/03/88/04/9357d3ea7e6f9cc.jpg" style="width:100%;"/>')
+                $("#main").append('<img id="banner_home" src="'+json.banner+'" style="width:100%;"/>')
             }
         }, 500)
 
