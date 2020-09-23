@@ -2,6 +2,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var db = require("./database.js");
+var conf = require("./config.js");
 var cors = require('cors')
 
 var path = require('path');
@@ -20,22 +21,33 @@ app.get("/v1/external_assets/status", function (req, res) {
   return;
 });
 
+var campos = conf.campos;
+console.log(1, campos);
 //Inserir um novo cliente
 app.post("/v1/external_assets/costumer", function (req, res) {
-  let data = [
-    req.body.name,
-    req.body.logo,
-    req.body.cor_link,
-    req.body.cor_btn_txt,
-    req.body.cor_btn_back,
-    req.body.cor_btn_borda,
-    req.body.banner,
-    req.body.font,
-    req.body.linkfont,
-    req.body.customcss
-  ];
+  let data = []
+  campos.forEach(element => {
+    data.push(req.body[element])
+  });
 
-  let sql = 'INSERT INTO customer (name, logo, cor_link, cor_btn_txt, cor_btn_back, cor_btn_borda, banner, font, linkfont, customcss) VALUES (?,?,?,?,?,?,?,?,?,?)';
+  // let sql = 'INSERT INTO customer'
+
+  let sql = 'INSERT INTO customer (';
+
+  campos.forEach(element => {
+    sql += element + ",";
+  });
+  sql = sql.substring(0, sql.length - 1)
+
+  sql += ") VALUES ("
+
+  campos.forEach(element => {
+    sql +=  "'',";
+  });
+  sql = sql.substring(0, sql.length - 1)
+
+  sql += ")"
+
   let resp = {};
 
   db.run(sql, data, function (err) {
@@ -56,20 +68,19 @@ app.post("/v1/external_assets/costumer", function (req, res) {
 
 //Atualizar informações de cliente
 app.put("/v1/external_assets/costumer", function (req, res) {
-  let data = [
-    req.body.name,
-    req.body.logo,
-    req.body.cor_link,
-    req.body.cor_btn_txt,
-    req.body.cor_btn_back,
-    req.body.cor_btn_borda,
-    req.body.banner,
-    req.body.font,
-    req.body.linkfont,
-    req.body.customcss,
-    req.body.id
-  ];
-  let sql = 'UPDATE customer SET name = ?, logo = ?, cor_link = ?, cor_btn_txt = ?, cor_btn_back = ?, cor_btn_borda = ?, banner = ?, font = ?, linkfont = ?, customcss = ? WHERE id = ?';
+  let data = []
+  campos.forEach(element => {
+    data.push(req.body[element])
+  });
+  data.push(req.body.id)
+
+  let sql = 'UPDATE customer SET ';
+  campos.forEach(element => {
+    sql += element + " = ?,";
+  });
+  sql = sql.substring(0, sql.length - 1)
+
+  sql += ' WHERE id = ?'
 
   let resp = {};
   db.run(sql, data, function (err) {
