@@ -12,6 +12,10 @@ let conf = {
         "cor_do_texto_do_botao_hover",
         "cor_do_fundo_do_botao_hover",
         "cor_da_borda_do_botao_hover",
+        "cor_do_texto_do_menu",
+        "cor_do_fundo_do_menu",
+        "cor_do_texto_do_rodape",
+        "cor_do_fundo_do_rodape",
         "css_customizado"
     ]
 };

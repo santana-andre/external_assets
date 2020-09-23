@@ -102,6 +102,24 @@ a, a:link, a:visited, a:hover {
     height: 80px;
     width: auto;
 }
+
+.collapse.navbar-collapse.mega-menu-fullwidth-collapse {
+    background: ${json.cor_do_fundo_do_menu} !important;
+}
+
+#megaMenu_v5-megaMenuInst_v5 #CC-megaMenu .mega-menu .nav>li>a {
+    color     : ${json.cor_do_texto_do_menu} !important;
+    background: ${json.cor_do_fundo_do_menu} !important;
+}
+
+.footer-links {
+    background: ${json.cor_do_fundo_do_rodape} !important;
+    color     : ${json.cor_do_texto_do_rodape} !important;
+}
+
+footer.col-xs-12.footer a {
+    color: ${json.cor_do_texto_do_rodape};
+}
 ${json.css_customizado}
 </style>`
 
