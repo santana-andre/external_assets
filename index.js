@@ -14,8 +14,12 @@ app.use(bodyParser.json({ limit: "9mb" }));
 
 var port = process.env.PORT || 3000;
 
-app.listen(port, function () {
-  console.log("NSH_External_Assets Running on port ",port);
+// app.listen(port, function () {
+//   console.log("NSH_External_Assets Running on port ",port);
+// });
+
+app.listen(3000, '150.136.166.80', function() {
+  console.log("... port %d in %s mode");
 });
 
 app.get("/v1/external_assets/status", function (req, res) {
