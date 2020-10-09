@@ -176,6 +176,33 @@ app.get("/admin", (req, res, next) => {
   return;
 });
 
+app.get("/assets/banner-1.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/banner-1.png'));
+  return;
+});
+app.get("/assets/banner-2.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/banner-2.png'));
+  return;
+});
+app.get("/assets/banner-3.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/banner-3.png'));
+  return;
+});
+
+
+app.get("/assets/logo-1.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/logo-1.png'));
+  return;
+});
+app.get("/assets/logo-2.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/logo-2.png'));
+  return;
+});
+app.get("/assets/logo-3.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/logo-3.png'));
+  return;
+});
+
 app.get("/occjs", (req, res, next) => {
   res.sendFile(path.join(__dirname + '/occ.js'));
   return;
