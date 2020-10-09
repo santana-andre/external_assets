@@ -12,13 +12,13 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "9mb", extended: false }));
 app.use(bodyParser.json({ limit: "9mb" }));
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 80;
 
 // app.listen(port, function () {
 //   console.log("NSH_External_Assets Running on port ",port);
 // });
 
-app.listen(3000, 'instance-20201009-1703', function() {
+app.listen(80, '127.0.0.1', function() {
   console.log("... port %d in %s mode");
 });
 
