@@ -18,7 +18,7 @@ var port = process.env.PORT || 3000;
 //   console.log("NSH_External_Assets Running on port ",port);
 // });
 
-app.listen(3000, '150.136.166.80', function() {
+app.listen(3000, 'instance-20201009-1703', function() {
   console.log("... port %d in %s mode");
 });
 
