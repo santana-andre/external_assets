@@ -52,6 +52,7 @@ function getCustomer(callback) {
     xmlHttp.open('GET', url, true); // true for asynchronous 
     xmlHttp.setRequestHeader('Access-Control-Allow-Origin', url);
     xmlHttp.setRequestHeader('Content-Type', 'application/json');
+    xmlHttp.setRequestHeader("Authorization", "Basic YWRtaW46b3JhY2xlMTIz");
     xmlHttp.send();
 }
 
