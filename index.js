@@ -113,6 +113,59 @@ app.post("/v1/external_assets/costumer", function (req, res) {
   return;
 });
 
+//Inserir um novo cliente com dados
+app.post("/v1/external_assets/costumer_with_data", function (req, res) {
+  let dbo = db.getConnection();
+  if (dbo) {
+    let data = []
+    campos.forEach(element => {
+      data.push(req.body[element])
+    });
+
+    // let sql = 'INSERT INTO customer'
+
+    let sql = 'INSERT INTO customer (';
+
+    campos.forEach(element => {
+      sql += element + ",";
+    });
+    sql = sql.substring(0, sql.length - 1)
+
+    sql += ") VALUES ("
+
+    campos.forEach(element => {
+      sql += "?,";
+    });
+    sql = sql.substring(0, sql.length - 1)
+
+    sql += ")"
+
+    let resp = {};
+
+    dbo.run(sql, data, function (err) {
+      if (err) {
+        resp = {
+          "message": "error",
+          "data": err.message
+        };
+        db.closeConnection();
+      } else {
+        resp = {
+          "message": "sucess"
+        };
+        db.closeConnection();
+      }
+    });
+    res.json(resp);
+  } else {
+    res.json({
+      "message": "error",
+      "detail": "Failed to retrieve connection to the database."
+    })
+  }
+  return;
+});
+
 //Atualizar informações de cliente
 app.put("/v1/external_assets/costumer", function (req, res) {
   let dbo = db.getConnection();

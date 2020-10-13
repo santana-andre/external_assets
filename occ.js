@@ -34,8 +34,7 @@ function getSyncScriptParams() {
 //Get Cliente Param
 var cliente = getSyncScriptParams()
 
-// https://externalassets.herokuapp.com/v1/external_assets/costumer
-var url_base = "https://externalassets.herokuapp.com/v1/external_assets";
+var url_base = "https://150.136.166.80:3000/v1/external_assets";
 //---------------------------- Buscar customizações expecifica
 function getCustomer(callback) {
     var xmlHttp = new XMLHttpRequest();
