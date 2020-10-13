@@ -9,9 +9,11 @@
   "author": "Isac M Q Junior",
   "license": "SEE LICENSE IN LICENSE.TXT",
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "md5": "^2.3.0",

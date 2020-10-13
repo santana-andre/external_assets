@@ -1,4 +1,4 @@
-//$("body").append("<script src='http://127.0.0.1:8887/external_assets/occ.js' cliente='oi'></script>")
+//$("body").append("<script src='https://150.136.166.80:3000/occjs' cliente='teste'></script>")
 //Lista de Clientes
 // var json = {
 //     oi: {
