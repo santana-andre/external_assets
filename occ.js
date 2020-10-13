@@ -1,4 +1,4 @@
-//$("body").append("<script src='http://127.0.0.1:8887/external_assets/occ.js' cliente='oi'></script>")
+//$("body").append("<script src='https://150.136.166.80:3000/occjs' cliente='teste'></script>")
 //Lista de Clientes
 // var json = {
 //     oi: {
@@ -59,7 +59,7 @@ function getCustomer(callback) {
 function responseGetCustomer(response) {
     // console.log("responseGetCustomer ", response);
     var resp = JSON.parse(response)
-    if(resp.message == "success"){
+    if (resp.message == "success") {
         json = resp.data;
         init(json)
         // console.log(resp.data);
@@ -79,25 +79,48 @@ function init(json) {
     //Custom CSS
     var customcss = `
 <style id="custom_style"> 
-@import url('${json.linkfont}');
+@import url('${json.url_da_fonte}');
 *{
-    font-family: ${json.font};
+    font-family: ${json.nome_da_fonte};
 }
 
 a, a:link, a:visited, a:hover {
-    color: ${json.cor_link};
+    color: ${json.cor_do_link};
 }
 .cc-button-primary {
-    background-color: ${json.cor_btn_back};
-    color: ${json.cor_btn_txt};
-    border-color: ${json.cor_btn_borda};
+    background-color: ${json.cor_do_fundo_do_botao};
+    color: ${json.cor_do_texto_do_botao};
+    border-color: ${json.cor_da_borda_do_botao};
+}
+.cc-button-primary:hover, .cc-button-primary:active {
+    background-color: ${json.cor_do_fundo_do_botao_hover};
+    color: ${json.cor_do_texto_do_botao_hover};
+    border-color: ${json.cor_da_borda_do_botao_hover};
 }
 
 .logo img{
     height: 80px;
     width: auto;
 }
-${json.customcss}
+
+.collapse.navbar-collapse.mega-menu-fullwidth-collapse {
+    background: ${json.cor_do_fundo_do_menu} !important;
+}
+
+#megaMenu_v5-megaMenuInst_v5 #CC-megaMenu .mega-menu .nav>li>a {
+    color     : ${json.cor_do_texto_do_menu} !important;
+    background: ${json.cor_do_fundo_do_menu} !important;
+}
+
+.footer-links {
+    background: ${json.cor_do_fundo_do_rodape} !important;
+    color     : ${json.cor_do_texto_do_rodape} !important;
+}
+
+footer.col-xs-12.footer a {
+    color: ${json.cor_do_texto_do_rodape};
+}
+${json.css_customizado}
 </style>`
 
 
@@ -108,11 +131,11 @@ ${json.customcss}
             $("body").append(customcss)
 
             //Logo
-            $(".logo img").attr("src", json.logo)
+            $(".logo img").attr("src", json.url_do_logo)
 
             //Banner Home
             if ($("#alert-page-change").html() == "homePage is loaded.") {
-                $("#main").append('<img id="banner_home" src="https://png.pngtree.com/thumb_back/fw800/back_pic/03/88/04/9357d3ea7e6f9cc.jpg" style="width:100%;"/>')
+                $("#main").append('<img id="banner_home" src="' + json.url_do_banner_da_home + '" style="width:100%;"/>')
             }
         }, 500)
 

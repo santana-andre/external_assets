@@ -1,0 +1,106 @@
+Oracle Commerce Cloud - Assets
+
+
+Site
+modelo1
+Url Do Logo
+https://150.136.166.80:3000/assets/logo-1.png
+Url Do Banner Da Home
+https://150.136.166.80:3000/assets/banner-1.png
+Url Da Fonte
+https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap
+Nome Da Fonte
+'Montserrat', sans-serif
+Cor Do Link
+#000
+Cor Do Texto Do Botao
+#000
+Cor Do Fundo Do Botao
+#fbc312
+Cor Da Borda Do Botao
+#fbc312
+Cor Do Texto Do Botao Hover
+#000
+Cor Do Fundo Do Botao Hover
+#e2ae0a
+Cor Da Borda Do Botao Hover
+#e2ae0a
+Cor Do Texto Do Menu
+#fff
+Cor Do Fundo Do Menu
+#333333
+Cor Do Texto Do Rodape
+#818181
+Cor Do Fundo Do Rodape
+#f5f5f5
+Css Customizado
+
+
+Site
+modelo2
+Url Do Logo
+https://150.136.166.80:3000/assets/logo-2.png
+Url Do Banner Da Home
+https://150.136.166.80:3000/assets/banner-2.png
+Url Da Fonte
+https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap
+Nome Da Fonte
+'Open Sans', sans-serif
+Cor Do Link
+#333333
+Cor Do Texto Do Botao
+#333333
+Cor Do Fundo Do Botao
+#f5cdc5
+Cor Da Borda Do Botao
+#f5cdc5
+Cor Do Texto Do Botao Hover
+#333333
+Cor Do Fundo Do Botao Hover
+#333333
+Cor Da Borda Do Botao Hover
+#eac4bc
+Cor Do Texto Do Menu
+#333333
+Cor Do Fundo Do Menu
+#f5cdc5
+Cor Do Texto Do Rodape
+#808080
+Cor Do Fundo Do Rodape
+#d5d5d5
+Css Customizado
+
+
+Site
+modelo3
+Url Do Logo
+https://150.136.166.80:3000/assets/logo-3.png
+Url Do Banner Da Home
+https://150.136.166.80:3000/assets/banner-3.png
+Url Da Fonte
+https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap
+Nome Da Fonte
+'Roboto', sans-serif
+Cor Do Link
+#000
+Cor Do Texto Do Botao
+#ffffff
+Cor Do Fundo Do Botao
+#880043
+Cor Da Borda Do Botao
+#880043
+Cor Do Texto Do Botao Hover
+#ffffff
+Cor Do Fundo Do Botao Hover
+#670133
+Cor Da Borda Do Botao Hover
+#670133
+Cor Do Texto Do Menu
+#ffffff
+Cor Do Fundo Do Menu
+#880043
+Cor Do Texto Do Rodape
+#707070
+Cor Do Fundo Do Rodape
+#f3f3f3
+Css Customizado

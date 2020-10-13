@@ -2,6 +2,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var db = require("./database.js");
+var conf = require("./config.js");
 var cors = require('cors')
 
 var path = require('path');
@@ -11,8 +12,45 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "9mb", extended: false }));
 app.use(bodyParser.json({ limit: "9mb" }));
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log("NSH_External_Assets Running.");
+const auth = require('basic-auth')
+
+ // Ensure this is before any other middleware or routes
+app.use((req, res, next) => {
+  let user = auth(req)
+
+  if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
+    res.statusCode = 401
+    res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
+    res.end('Unauthorized')
+  } else {
+    next()
+  }
+})
+
+// app.listen(process.env.PORT || 3000, function () {
+//   console.log("NSH_External_Assets Running.");
+// });
+
+
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+// https.createServer(options, function (req, res) {
+//   // res.writeHead(200);
+//   // res.end("hello world\n");
+// }).listen(process.env.PORT || 3000, function () {
+//   console.log("NSH_External_Assets Running.");
+// });
+
+const httpsServer = https.createServer(options, app);
+
+httpsServer.listen(3000, () => {
+    console.log('HTTPS Server running on port 443');
 });
 
 app.get("/v1/external_assets/status", function (req, res) {
@@ -20,22 +58,33 @@ app.get("/v1/external_assets/status", function (req, res) {
   return;
 });
 
+var campos = conf.campos;
+console.log(1, campos);
 //Inserir um novo cliente
 app.post("/v1/external_assets/costumer", function (req, res) {
-  let data = [
-    req.body.name,
-    req.body.logo,
-    req.body.cor_link,
-    req.body.cor_btn_txt,
-    req.body.cor_btn_back,
-    req.body.cor_btn_borda,
-    req.body.banner,
-    req.body.font,
-    req.body.linkfont,
-    req.body.customcss
-  ];
+  let data = []
+  campos.forEach(element => {
+    data.push(req.body[element])
+  });
 
-  let sql = 'INSERT INTO customer (name, logo, cor_link, cor_btn_txt, cor_btn_back, cor_btn_borda, banner, font, linkfont, customcss) VALUES (?,?,?,?,?,?,?,?,?,?)';
+  // let sql = 'INSERT INTO customer'
+
+  let sql = 'INSERT INTO customer (';
+
+  campos.forEach(element => {
+    sql += element + ",";
+  });
+  sql = sql.substring(0, sql.length - 1)
+
+  sql += ") VALUES ("
+
+  campos.forEach(element => {
+    sql +=  "'',";
+  });
+  sql = sql.substring(0, sql.length - 1)
+
+  sql += ")"
+
   let resp = {};
 
   db.run(sql, data, function (err) {
@@ -56,20 +105,19 @@ app.post("/v1/external_assets/costumer", function (req, res) {
 
 //Atualizar informações de cliente
 app.put("/v1/external_assets/costumer", function (req, res) {
-  let data = [
-    req.body.name,
-    req.body.logo,
-    req.body.cor_link,
-    req.body.cor_btn_txt,
-    req.body.cor_btn_back,
-    req.body.cor_btn_borda,
-    req.body.banner,
-    req.body.font,
-    req.body.linkfont,
-    req.body.customcss,
-    req.body.id
-  ];
-  let sql = 'UPDATE customer SET name = ?, logo = ?, cor_link = ?, cor_btn_txt = ?, cor_btn_back = ?, cor_btn_borda = ?, banner = ?, font = ?, linkfont = ?, customcss = ? WHERE id = ?';
+  let data = []
+  campos.forEach(element => {
+    data.push(req.body[element])
+  });
+  data.push(req.body.id)
+
+  let sql = 'UPDATE customer SET ';
+  campos.forEach(element => {
+    sql += element + " = ?,";
+  });
+  sql = sql.substring(0, sql.length - 1)
+
+  sql += ' WHERE id = ?'
 
   let resp = {};
   db.run(sql, data, function (err) {
@@ -162,6 +210,33 @@ app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
 
 app.get("/admin", (req, res, next) => {
   res.sendFile(path.join(__dirname + '/index.html'));
+  return;
+});
+
+app.get("/assets/banner-1.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/banner-1.png'));
+  return;
+});
+app.get("/assets/banner-2.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/banner-2.png'));
+  return;
+});
+app.get("/assets/banner-3.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/banner-3.png'));
+  return;
+});
+
+
+app.get("/assets/logo-1.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/logo-1.png'));
+  return;
+});
+app.get("/assets/logo-2.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/logo-2.png'));
+  return;
+});
+app.get("/assets/logo-3.png", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/assets/logo-3.png'));
   return;
 });
 
