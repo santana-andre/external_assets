@@ -253,6 +253,9 @@
 
     </script>
     <style>
+        .container{
+            margin-bottom: 20px;
+        }
         .aviso {
             position: fixed;
             width: 80%;
@@ -269,8 +272,17 @@
             margin-bottom: 15px;
         }
 
-        .lbl_input{
+        .lbl_input {
             text-transform: capitalize;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            background: #efefef;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
         }
     </style>
 
@@ -298,8 +310,15 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+
     </div>
-    </div>
+    <footer>
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Powered by OCI</span>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
