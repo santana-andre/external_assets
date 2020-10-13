@@ -14,19 +14,6 @@ app.use(bodyParser.json({ limit: "9mb" }));
 
 const auth = require('basic-auth')
 
- // Ensure this is before any other middleware or routes
-app.use((req, res, next) => {
-  let user = auth(req)
-
-  if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
-    res.statusCode = 401
-    res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
-    res.end('Unauthorized')
-  } else {
-    next()
-  }
-})
-
 // app.listen(process.env.PORT || 3000, function () {
 //   console.log("NSH_External_Assets Running.");
 // });
@@ -50,7 +37,7 @@ const options = {
 const httpsServer = https.createServer(options, app);
 
 httpsServer.listen(3000, () => {
-    console.log('HTTPS Server running on port 443');
+  console.log('HTTPS Server running on port 443');
 });
 
 app.get("/v1/external_assets/status", function (req, res) {
@@ -321,10 +308,6 @@ app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
   return;
 });
 
-app.get("/admin", (req, res, next) => {
-  res.sendFile(path.join(__dirname + '/index.html'));
-  return;
-});
 
 app.get("/assets/banner-1.png", (req, res, next) => {
   res.sendFile(path.join(__dirname + '/assets/banner-1.png'));
@@ -357,3 +340,22 @@ app.get("/occjs", (req, res, next) => {
   res.sendFile(path.join(__dirname + '/occ.js'));
   return;
 });
+
+// Ensure this is before any other middleware or routes
+app.use((req, res, next) => {
+  let user = auth(req)
+
+  if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
+    res.statusCode = 401
+    res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
+    res.end('Unauthorized')
+  } else {
+    next()
+  }
+})
+
+app.get("/admin", (req, res, next) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
+  return;
+});
+
