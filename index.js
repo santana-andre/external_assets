@@ -15,17 +15,17 @@ app.use(bodyParser.json({ limit: "9mb" }));
 const auth = require('basic-auth')
 
  // Ensure this is before any other middleware or routes
-// app.use((req, res, next) => {
-//   let user = auth(req)
+app.use((req, res, next) => {
+  let user = auth(req)
 
-//   if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
-//     res.statusCode = 401
-//     res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
-//     res.end('Unauthorized')
-//   } else {
-//     next()
-//   }
-// })
+  if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
+    res.statusCode = 401
+    res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
+    res.end('Unauthorized')
+  } else {
+    next()
+  }
+})
 
 // app.listen(process.env.PORT || 3000, function () {
 //   console.log("NSH_External_Assets Running.");
@@ -62,209 +62,149 @@ var campos = conf.campos;
 console.log(1, campos);
 //Inserir um novo cliente
 app.post("/v1/external_assets/costumer", function (req, res) {
-  let dbo = db.getConnection();
-  if (dbo) {
-    let data = []
-    campos.forEach(element => {
-      data.push(req.body[element])
-    });
+  let data = []
+  campos.forEach(element => {
+    data.push(req.body[element])
+  });
 
-    // let sql = 'INSERT INTO customer'
+  // let sql = 'INSERT INTO customer'
 
-    let sql = 'INSERT INTO customer (';
+  let sql = 'INSERT INTO customer (';
 
-    campos.forEach(element => {
-      sql += element + ",";
-    });
-    sql = sql.substring(0, sql.length - 1)
+  campos.forEach(element => {
+    sql += element + ",";
+  });
+  sql = sql.substring(0, sql.length - 1)
 
-    sql += ") VALUES ("
+  sql += ") VALUES ("
 
-    campos.forEach(element => {
-      sql += "'',";
-    });
-    sql = sql.substring(0, sql.length - 1)
+  campos.forEach(element => {
+    sql +=  "'',";
+  });
+  sql = sql.substring(0, sql.length - 1)
 
-    sql += ")"
+  sql += ")"
 
-    let resp = {};
+  let resp = {};
 
-    dbo.run(sql, data, function (err) {
-      if (err) {
-        resp = {
-          "message": "error",
-          "data": err.message
-        };
-        db.closeConnection();
-      } else {
-        resp = {
-          "message": "sucess"
-        };
-        db.closeConnection();
-      }
-    });
-    res.json(resp);
-  } else {
-    res.json({
-      "message": "error",
-      "detail": "Failed to retrieve connection to the database."
-    })
-  }
+  db.run(sql, data, function (err) {
+    if (err) {
+      resp = {
+        "message": "error",
+        "data": err.message
+      };
+    } else {
+      resp = {
+        "message": "sucess"
+      };
+    }
+  });
+  res.json(resp);
   return;
 });
 
 //Atualizar informações de cliente
 app.put("/v1/external_assets/costumer", function (req, res) {
-  let dbo = db.getConnection();
-  if (dbo) {
-    let data = []
-    campos.forEach(element => {
-      data.push(req.body[element])
-    });
-    data.push(req.body.id)
+  let data = []
+  campos.forEach(element => {
+    data.push(req.body[element])
+  });
+  data.push(req.body.id)
 
-    let sql = 'UPDATE customer SET ';
-    campos.forEach(element => {
-      sql += element + " = ?,";
-    });
-    sql = sql.substring(0, sql.length - 1)
+  let sql = 'UPDATE customer SET ';
+  campos.forEach(element => {
+    sql += element + " = ?,";
+  });
+  sql = sql.substring(0, sql.length - 1)
 
-    sql += ' WHERE id = ?'
+  sql += ' WHERE id = ?'
 
-    let resp = {};
-    dbo.run(sql, data, function (err) {
-      if (err) {
-        resp = {
-          "message": "error",
-          "data": err.message
-        };
-        db.closeConnection();
-      } else {
-        resp = {
-          "message": "sucess"
-        };
-        db.closeConnection();
-      }
-    });
-    res.json(resp);
-  } else {
-    res.json({
-      "message": "error",
-      "detail": "Failed to retrieve connection to the database."
-    })
-  }
+  let resp = {};
+  db.run(sql, data, function (err) {
+    if (err) {
+      resp = {
+        "message": "error",
+        "data": err.message
+      };
+    } else {
+      resp = {
+        "message": "sucess"
+      };
+    }
+  });
+  res.json(resp);
   return;
 });
 
 //Remover informações de cliente
 app.delete("/v1/external_assets/costumer", function (req, res) {
-  let dbo = db.getConnection();
-  if (dbo) {
-    let data = req.body.id;
-    let sql = 'DELETE FROM customer WHERE rowid=?';
-    let resp = {};
-    dbo.run(sql, data, function (err) {
-      if (err) {
-        resp = {
-          "message": "error",
-          "data": err.message
-        };
-        db.closeConnection();
-      } else {
-        resp = {
-          "message": "sucess"
-        };
-        db.closeConnection();
-      }
-    });
-    res.json(resp);
-  } else {
-    res.json({
-      "message": "error",
-      "detail": "Failed to retrieve connection to the database."
-    })
-  }
+  let data = req.body.id;
+  let sql = 'DELETE FROM customer WHERE rowid=?';
+  let resp = {};
+  db.run(sql, data, function (err) {
+    if (err) {
+      resp = {
+        "message": "error",
+        "data": err.message
+      };
+    } else {
+      resp = {
+        "message": "sucess"
+      };
+    }
+  });
+  res.json(resp);
   return;
 });
 
 //Recuperar informacoes de todos clientes
 app.get("/v1/external_assets/costumer", (req, res, next) => {
-  let dbo = db.getConnection();
-  if (dbo) {
-    let sql = "select * from customer";
-    let params = [];
-    dbo.all(sql, params, (err, rows) => {
-      if (err) {
-        res.status(400).json({ "error": err.message });
-        db.closeConnection();
-        return;
-      }
-      res.json({
-        "message": "success",
-        "data": rows
-      })
-      db.closeConnection();
-    });
-  } else {
+  var sql = "select * from customer";
+  var params = [];
+  db.all(sql, params, (err, rows) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    }
     res.json({
-      "message": "error",
-      "detail": "Failed to retrieve connection to the database."
+      "message": "success",
+      "data": rows
     })
-  }
+  });
   return;
 });
 
 //Recuperar informacoes de apenas um cliente
 app.get("/v1/external_assets/costumer_id/:id", (req, res, next) => {
-  let dbo = db.getConnection();
-  if (dbo) {
-    var sql = "select * from customer where id = ?"
-    var params = [req.params.id]
-    dbo.get(sql, params, (err, row) => {
-      if (err) {
-        res.status(400).json({ "error": err.message });
-        db.closeConnection();
-        return;
-      }
-      res.json({
-        "message": "success",
-        "data": row
-      })
-      db.closeConnection();
-    });
-  } else {
+  var sql = "select * from customer where id = ?"
+  var params = [req.params.id]
+  db.get(sql, params, (err, row) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    }
     res.json({
-      "message": "error",
-      "detail": "Failed to retrieve connection to the database."
+      "message": "success",
+      "data": row
     })
-  }
+  });
   return;
 });
 
 //Recuperar informacoes de apenas um cliente
 app.get("/v1/external_assets/costumer_name/:name", (req, res, next) => {
-  let dbo = db.getConnection();
-  if (dbo) {
-    var sql = "select * from customer where name = ?"
-    var params = [req.params.name]
-    dbo.get(sql, params, (err, row) => {
-      if (err) {
-        res.status(400).json({ "error": err.message });
-        db.closeConnection();
-        return;
-      }
-      res.json({
-        "message": "success",
-        "data": row
-      })
-      db.closeConnection();
-    });
-  } else {
+  var sql = "select * from customer where name = ?"
+  var params = [req.params.name]
+  db.get(sql, params, (err, row) => {
+    if (err) {
+      res.status(400).json({ "error": err.message });
+      return;
+    }
     res.json({
-      "message": "error",
-      "detail": "Failed to retrieve connection to the database."
+      "message": "success",
+      "data": row
     })
-  }
+  });
   return;
 });
 
