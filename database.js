@@ -30,7 +30,36 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
                     console.log("Table customer created");
                 }
             });
+
+        db.close((err) => {
+            if (err) {
+                console.log(err.message);
+            }
+            console.log('Close the database connection.');
+        });
     }
 });
 
-module.exports = db
+let getConnection = () => {
+    return db = new sqlite3.Database('./db.sqlite', (err) => {
+        if (err) {
+            console.error(err.message);
+        }
+        console.log('Create database connection.');
+    });
+}
+
+let closeConnection = () => {
+    return db.close((err) => {
+        if (err) {
+            return console.error(err.message);
+        }
+        console.log('Close the database connection.');
+    });
+}
+
+module.exports = {
+    db,
+    getConnection,
+    closeConnection
+}
