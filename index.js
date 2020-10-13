@@ -25,11 +25,17 @@ const options = {
   cert: fs.readFileSync('cert.pem')
 };
 
-https.createServer(options, function (req, res) {
-  res.writeHead(200);
-  res.end("hello world\n");
-}).listen(process.env.PORT || 3000, function () {
-  console.log("NSH_External_Assets Running.");
+// https.createServer(options, function (req, res) {
+//   // res.writeHead(200);
+//   // res.end("hello world\n");
+// }).listen(process.env.PORT || 3000, function () {
+//   console.log("NSH_External_Assets Running.");
+// });
+
+const httpsServer = https.createServer(options, app);
+
+httpsServer.listen(3000, () => {
+    console.log('HTTPS Server running on port 443');
 });
 
 app.get("/v1/external_assets/status", function (req, res) {
