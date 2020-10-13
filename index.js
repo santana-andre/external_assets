@@ -15,17 +15,17 @@ app.use(bodyParser.json({ limit: "9mb" }));
 const auth = require('basic-auth')
 
  // Ensure this is before any other middleware or routes
-app.use((req, res, next) => {
-  let user = auth(req)
+// app.use((req, res, next) => {
+//   let user = auth(req)
 
-  if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
-    res.statusCode = 401
-    res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
-    res.end('Unauthorized')
-  } else {
-    next()
-  }
-})
+//   if (user === undefined || user['name'] !== 'admin' || user['pass'] !== 'oracle123') {
+//     res.statusCode = 401
+//     res.setHeader('WWW-Authenticate', 'Basic realm="Node"')
+//     res.end('Unauthorized')
+//   } else {
+//     next()
+//   }
+// })
 
 // app.listen(process.env.PORT || 3000, function () {
 //   console.log("NSH_External_Assets Running.");
