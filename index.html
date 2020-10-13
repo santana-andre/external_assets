@@ -64,7 +64,7 @@
 
                 Object.entries(site).forEach(([idCampo, valorCampo]) => {
                     if (idCampo != "id" && idCampo != "name") {
-                        tipoCampo = idCampo.substr(0, 3) == "cor" ? "color" : "text";
+                        tipoCampo = "text";//idCampo.substr(0, 3) == "cor" ? "color" : "text";
                         nomeCampo = idCampo.replace(/_/g, " ");
                         html +=
                             `
