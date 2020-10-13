@@ -12,7 +12,23 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ limit: "9mb", extended: false }));
 app.use(bodyParser.json({ limit: "9mb" }));
 
-app.listen(process.env.PORT || 3000, function () {
+// app.listen(process.env.PORT || 3000, function () {
+//   console.log("NSH_External_Assets Running.");
+// });
+
+
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
+https.createServer(options, function (req, res) {
+  res.writeHead(200);
+  res.end("hello world\n");
+}).listen(process.env.PORT || 3000, function () {
   console.log("NSH_External_Assets Running.");
 });
 
