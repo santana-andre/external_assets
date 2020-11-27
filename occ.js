@@ -1,4 +1,4 @@
-//$("body").append("<script src='https://150.136.166.80:3000/occjs' cliente='teste'></script>")
+//$("body").append("<script src='https://193.122.145.73:3000/occjs' cliente='teste'></script>")
 
 function getSyncScriptParams() {
     var scripts = document.getElementsByTagName('script');
