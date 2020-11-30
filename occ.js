@@ -11,7 +11,7 @@ function getSyncScriptParams() {
 //Get Cliente Param
 var cliente = getSyncScriptParams()
 
-var url_base = "https://193.122.145.73:3000/external_assets";
+var url_base = "https://193.122.145.73:3000/v1/external_assets";
 //---------------------------- Buscar customizações expecifica
 function getCustomer(callback) {
     var xmlHttp = new XMLHttpRequest();
